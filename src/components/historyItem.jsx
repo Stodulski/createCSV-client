@@ -1,5 +1,7 @@
 import React from "react";
 
+import axios from "axios";
+
 export const HistoryItem = ({
     name,
     id,
@@ -12,16 +14,13 @@ export const HistoryItem = ({
     const { VITE_API } = import.meta.env;
     const downloadFile = async () => {
         try {
-            const response = await fetch(`${VITE_API}/${name}`, {
-                method: "GET",
+            const response = await axios.get(`${VITE_API}/${id}`, {
                 headers: {
                     Authorization: localStorage.getItem("token"),
                 },
             });
-            if (!response.ok) {
-                throw new Error();
-            }
-            const blob = await response.blob();
+
+            const blob = response.data.csv;
             const url = window.URL.createObjectURL(new Blob([blob]));
             const link = document.createElement("a");
             link.href = url;

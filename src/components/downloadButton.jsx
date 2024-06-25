@@ -7,26 +7,16 @@ export const DownloadButton = ({
     setNotificationMessage,
     setNotificationStatus,
 }) => {
-    const { VITE_API } = import.meta.env;
     const downloadFile = async () => {
         try {
-            const response = await fetch(`${VITE_API}/${fileName}`, {
-                method: "GET",
-                headers: {
-                    Authorization: localStorage.getItem("token"),
-                },
-            });
-            if (!response.ok) {
-                throw new Error();
-            }
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", fileName);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
+            const csvBlob = fileName.csv;
+            const blobUrl = window.URL.createObjectURL(new Blob([csvBlob]));
+            const a = document.createElement("a");
+            a.href = blobUrl;
+            a.download = fileName.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
             setNotification(true);
             setNotificationMessage("Downloading...");
             setNotificationStatus(0);

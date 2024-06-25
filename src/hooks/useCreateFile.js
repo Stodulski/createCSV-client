@@ -24,10 +24,12 @@ const useCreateFile = (
             const response = await axios.post(`${VITE_API}/csv/new`, {
                 url: url,
             });
-            setFileName(response.data.name);
-            setFileStatus(true);
+            setFileName({name: response.data.name, csv: response.data.csv})
+            setNotification(true);
             setNotificationMessage(response.data.text);
+            setFileStatus(true);
         } catch (error) {
+            console.log(error);
             setNotificationStatus(1);
             setNotificationMessage("Error");
         } finally {

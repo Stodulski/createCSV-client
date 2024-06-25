@@ -3,7 +3,8 @@ import React from "react";
 export const Logout = () => {
     const logout = () => {
         localStorage.removeItem("token");
-        window.location.href = "/login";
+        localStorage.removeItem("expirationTime");
+        window.location.reload()
     };
     return (
         <svg
