@@ -16,11 +16,12 @@ const useCreateFile = (
         setNotification(true);
         setNotificationStatus(0);
         setNotificationMessage("In process...");
+        const { VITE_API } = import.meta.env;
         try {
             inputRef.current.value = "";
             inputRef.current.disabled = true;
             buttonRef.current.disabled = true;
-            const response = await axios.post(`/api/csv/new`, {
+            const response = await axios.post(`${VITE_API}/csv/new`, {
                 url: url,
             });
             setFileName({name: response.data.name, csv: response.data.csv})
