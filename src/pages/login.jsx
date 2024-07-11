@@ -36,7 +36,6 @@ export const Login = () => {
             } else {
                 setNotificationMessage("Server error");
             }
-
             setTimeout(() => {
                 setNotification(false);
             }, 3000);
