@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 
 const useFetchFiles = (fileName) => {
     const [files, setFiles] = useState([]);
-    const { VITE_API } = import.meta.env;
     const fetchFiles = async () => {
         try {
-            const response = await axios.get(`${VITE_API}/csv/get`, {
+            const response = await axios.get(`/api/csv/get`, {
                 headers: { Authorization: localStorage.getItem("token") },
             });
             setFiles(response.data);
